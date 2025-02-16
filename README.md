@@ -1,56 +1,124 @@
-# ChromaKey
 
-A TypeScript utility for processing and filtering email data from CSV files.
+# ChromaKey 📧
 
-## Features
+A robust TypeScript utility for processing, filtering, and analyzing email data from CSV files. ChromaKey provides a streamlined way to handle email-related operations with built-in validation and filtering capabilities.
 
-- Load and parse CSV files containing email data
-- Extract and validate email addresses
-- Filter unique email addresses
-- Filter emails by domain
-- Search emails by substring
-- Export results to CSV files
+## 🚀 Features
 
-## Installation
+- Efficient CSV file processing for email data
+- Advanced email validation and extraction
+- Smart duplicate detection and removal
+- Domain-specific filtering system
+- Flexible email search functionality with pattern matching
+- Customizable CSV export options
+- Type-safe implementation with TypeScript
 
-```sh
+## 📋 Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn package manager
+
+## ⚡ Installation
+
+```bash
+# Using npm
 npm install
+
+# Using yarn
+yarn install
 ```
 
-Usage
-The main functionality is provided through the CSV class. Here's a basic example:
+## 💻 Usage
 
-import CSV from "./csv";
+The library centers around the `CSV` class, which provides all core functionality:
 
-// Initialize with your CSV file
-const csv = new CSV("passwords.csv");
+```typescript
+import { CSV } from "./csv";
 
-// Get unique emails
-const uniqueEmails = csv.GetUniqueEmails();
+// Initialize with your data file
+const emailProcessor = new CSV("source-data.csv");
 
-// Filter Gmail addresses
-const gmailEmails = csv.GetEmailWithDomain("gmail.com");
+// Get all unique email addresses
+const uniqueEmails = emailProcessor.GetUniqueEmails();
 
-// Save results to CSV
-csv.SaveIntoCSV(uniqueEmails, "unique-emails.csv");
-Input File Format
-The input CSV file should contain the following columns:
+// Filter for specific domain
+const gmailAddresses = emailProcessor.GetEmailWithDomain("gmail.com");
 
-username (email address)
-password
-url
-name
-note
-Output
-All generated files are saved in the output directory:
+// Search for pattern
+const matchingEmails = emailProcessor.SearchEmails("john");
 
-unique-emails.csv: Contains all unique email addresses
-gmail-emails.csv: Contains filtered Gmail addresses
-Custom named files when using SaveIntoCSV()
-Development
-This project uses TypeScript. To build the project:
+// Export results
+emailProcessor.SaveIntoCSV(uniqueEmails, "unique-addresses.csv");
+```
 
-File Structure
-csv.ts - Main CSV processing class
-index.ts - Entry point
-output - Generated CSV files
+## 📊 Input File Format
+
+Your input CSV file should follow this structure:
+
+| Column    | Description           | Required |
+|----------|-----------------------|----------|
+| username | Email address         | Yes      |
+| password | Account password      | Yes      |
+| url      | Associated URL        | No       |
+| name     | User's name          | No       |
+| note     | Additional comments   | No       |
+
+## 📁 Output Files
+
+All processed files are stored in the `output/` directory:
+
+```
+output/
+├── unique-emails.csv      # Deduplicated email addresses
+├── domain-filtered.csv    # Domain-specific results
+└── custom-exports/        # Custom export location
+```
+
+## 🛠️ Development
+
+```bash
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run tests
+npm test
+
+# Generate documentation
+npm run docs
+```
+
+## 📂 Project Structure
+
+```
+src/
+├── csv.ts          # Core CSV processing implementation
+├── index.ts        # Main entry point
+├── types/          # TypeScript type definitions
+├── utils/          # Helper utilities
+└── validators/     # Email validation logic
+```
+
+## 🔍 API Reference
+
+### CSV Class
+
+#### `constructor(filePath: string)`
+Initializes a new CSV processor with the specified file.
+
+#### `GetUniqueEmails(): string[]`
+Returns an array of deduplicated email addresses.
+
+#### `GetEmailWithDomain(domain: string): string[]`
+Filters emails by specified domain.
+
+#### `SearchEmails(pattern: string): string[]`
+Searches emails containing the given pattern.
+
+#### `SaveIntoCSV(data: string[], filename: string): void`
+Exports data to a CSV file.
+
+Made with ❤️ by [gitnasr](@gitnasr)
+
