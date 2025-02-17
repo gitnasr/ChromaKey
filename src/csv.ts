@@ -60,7 +60,9 @@ class CSV {
     return emailRegex.test(email);
   }
   public GetUniqueEmails() {
-    const emails = this.Passwords.filter((p) => this.isEmailValid(p.username));
+    const emails = this.Passwords.filter((p) =>
+      this.isEmailValid(p.username)
+    ).sort((a, b) => a.username.localeCompare(b.username));
     return [...new Set(emails)];
   }
   public GetEmailWithDomain(domain: string) {
